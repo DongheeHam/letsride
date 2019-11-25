@@ -13,7 +13,7 @@ function Enter_Check(form){
 		if(form.chatInputText.value!="")
 			chat_send(form);  // 실행할 이벤트
 	}
-}
+} 
 
 // default module
 var app={
