@@ -1,12 +1,22 @@
 // ***********전역변수 *************
+//var host='http://localhost:7070/';
+//var wsshost='ws://localhost:7070/echo/';
 var host='http://localhost:7070/';
-var wshost='ws://localhost:7070/echo/';
+var wshost='ws://localhost:7070/echo.do';
 //var host='https://letsride.donghee.site/';
-//var wshost='ws://letsride.donghee.site/echo/';
+//var wshost='wss://letsride.donghee.site/echo/';
+var defaultImage='/res/img/defaultImage.jpg';
 
+function Enter_Check(form){
+    // 엔터키의 코드는 13입니다.
+	if(event.keyCode == 13){
+		if(form.chatInputText.value!="")
+			chat_send(form);  // 실행할 이벤트
+	}
+}
 
 // default module
-var app1={
+var app={
 			go : function(page, param, cb){
 				let p = (typeof param !== 'object') ? {} : param;
 				//window.location.hash ="#"+page;
@@ -40,7 +50,7 @@ var app1={
 		};
 
 // ********cordova module ***********
-var app = {
+var app1 = {
     // Application Constructor
     initialize: function() {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
@@ -82,7 +92,7 @@ var app = {
     }*/
 };
 
-app.initialize();
+app1.initialize();
 
 
 
@@ -101,32 +111,34 @@ $('#kakaoLogin').tap(function(){
 			  KakaoTalk.getAccessToken(function(r){
 				  console.log('success! r : ',r);
 				  access_token=r;
+				  gender='f';
+				  app.get(host+'join',{
+				    	id:id,
+				    	nickname:nickname,
+				    	profile_image:profile_image,
+				    	access_token:access_token,
+				    	gender:gender
+				    	},function(res){
+						if(res.rc>0){
+							console.log("join success - res : "+res);
+							window.localStorage.setItem("id",id );
+							window.localStorage.setItem("nickname",nickname );
+							window.localStorage.setItem("profile_image", profile_image);
+							window.localStorage.setItem("access_token", access_token);
+							window.localStorage.setItem("gender", gender);
+							window.localStorage.setItem("l_token", res.result);
+							location.href="#home";
+						}else{
+							console.log("join fail : "+res.resMessage);
+							alert("join fail : "+res.resMessage);
+							location.href="#login";
+						}
+					});
 			  },function(r){
 				  console.log('fail! r : ',r);
 			  });
 			  
-			  app1.get(host+'join',{
-			    	id:id,
-			    	nickname:nickname,
-			    	profile_image:profile_image,
-			    	access_token:access_token,
-			    	gender:gender
-			    	},function(res){
-					if(res.rc>0){
-						console.log("join success - res : "+res);
-						window.localStorage.setItem("id",id );
-						window.localStorage.setItem("nickname",nickname );
-						window.localStorage.setItem("profile_image", profile_image);
-						window.localStorage.setItem("access_token", access_token);
-						window.localStorage.setItem("gender", gender);
-						window.localStorage.setItem("l_token", res.result);
-						location.href="#home";
-					}else{
-						console.log("join fail : "+res.resMessage);
-						alert("join fail : "+res.resMessage);
-						location.href="#login";
-					}
-				});
+			  
 		      /*window.localStorage.setItem("id", result.id);
 		      window.localStorage.setItem("nickname", result.nickname);
 		      window.localStorage.setItem("profile_image", result.profile_image);
@@ -154,9 +166,10 @@ $('#kakaoLogin').tap(function(){
 });
 $('#home').on('pagebeforeshow',function(event){
 	console.log('pagebeforeshow 발생 in #home');
-	$('#result-check').text(window.localStorage.getItem('id')+"nickname"+window.localStorage.getItem('nickname')+"profile_image"+window.localStorage.getItem('profile_image'));
-	chat_openSocket();
+	
+	if(ws==null)chat_openSocket();
 });
+
 $('#kakaoLogout').tap(function(){
 	/*deleteCookie('id');
 	deleteCookie('nickname');
@@ -175,41 +188,78 @@ $('#kakaoLogout').tap(function(){
 });
 
 
-// ****************** 채팅 모듈 ********************** 
-
+//****************** 채팅 모듈 ********************** 
 var ws;
-var messages=document.getElementById("messages");
+var messages=document.getElementById("chat-area-all");
 
 function chat_openSocket(){
+	console.log('chat_openSocket()');
     if(ws!==undefined && ws.readyState!==WebSocket.CLOSED){
-        writeResponse("WebSocket is already opened.");
+        chat_writeResponse("WebSocket is already opened.");
         return;
     }
+    
     //웹소켓 객체 만드는 코드
-    ws=new WebSocket("ws://localhost:7070/chat/echo.do");
+    //ws=new WebSocket(wshost+JSON.stringify(params));
+    ws=new WebSocket(wshost+"?"+window.localStorage.getItem("l_token"));
     
     ws.onopen=function(event){
         if(event.data===undefined) return;
-        
-        writeResponse(event.data);
+        console.log('onopen(event) : ',event);
+        chat_writeResponse(event.data);
     };
     ws.onmessage=function(event){
-        writeResponse(event.data);
+    	console.log('onmessage(event) : ',event);
+    	chat_writeResponse(JSON.parse(event.data));
     };
     ws.onclose=function(event){
-        writeResponse("Connection closed");
+    	chat_writeResponse("Connection closed");
     }
 }
 
-function chat_send(){
-    var text=document.getElementById("messageinput").value+","+document.getElementById("sender").value;
-    ws.send(text);
+function chat_send(form){
+    //var text=document.getElementById("all-chat-input-text").value+","+window.localStorage.getItem("nickname");
+    if(form.chatInputText.value==""){
+    	return;
+    }
+    var message={
+    		message:form.chatInputText.value,
+    		scope:form.chatRoomScope.value,
+    		nickname:window.localStorage.getItem("nickname"),
+    		imagepath:window.localStorage.getItem("profile-image")
+    }
+    ws.send(JSON.stringify(message));
     text="";
+    var messageHtml='<div class="my-message">'
+    	+'<div class="my-text">'
+			+'<div>'+message.message+'</div>'
+    	+'</div>'
+    +'</div>'
+    form.chatInputText.value="";
+    document.getElementById("chat-area-"+message.scope).innerHTML+=messageHtml;
+    $('#chat-area-all').scrollTop(99999999);
 }
 
 function chat_closeSocket(){
     ws.close();
 }
-function chat_writeResponse(text){
-    messages.innerHTML+="<br/>"+text;
+function chat_writeResponse(data){
+    console.log("data : ",data);
+	var scope=data.scope;
+    var message=data.message;
+    var sender=data.nickname;
+    var imagepath=data.imagepath==null?defaultImage:data.imagepath;
+    
+    
+    console.log('scope'+scope+' | message'+message+' | sender'+sender+' | imagepath'+imagepath);
+    var messageHtml='<div class="someones-message">'
+    	+'<div class="someones-image"><img src="'+imagepath+'"></div>'
+    	+'<div class="someones-text">'
+			+'<div class="sender">'+sender+'</div>'
+			+'<div class="text">'+message+'</div>'
+    	+'</div>'
+    +'</div>'
+    
+    document.getElementById("chat-area-"+scope).innerHTML+=messageHtml;
+    
 }

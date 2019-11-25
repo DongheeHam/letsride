@@ -3,178 +3,162 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-
+	 <meta name="viewport" content="width=device-width, target-densitydpi=device-dpi" />
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
-    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
-
+    <!-- <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover"> -->
+	<link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="./jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css">
     <script src="./js/jquery-1.11.1.min.js"></script>
     <script src="./jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <title>Let's Ride</title>
 </head>
 <body>
-	<div data-role="page" id="loding">
+	<section data-role="page" id="loding">
 		<div data-role="content">
 			<div id="letsride">Let's Ride2</div>
 			<div id="logo">
 				로딩중입니다.
 			</div>
 		</div>
-	</div>
-  <!-------------------------------첫화면------------------------------------>
-          <div data-role="page" id="login">
-          <div data-role="content" >
-                <p id="letsride">Let's Ride2</p>
-                <div id="logo">
-                <a id="kakaoLogin" data-role="button" data-icon="comment" data-iconpos="bottom">
-                  	 카카오톡 로그인
-                </a>
-                </div>
-            	
-            </div>
-            <div id="divResult"></div>
-        </div>
-        <!---------------------------홈화면------------------------->
-        <div data-role="page" id="home">
-            <div data-role="header" style="background-color:  whitesmoke;">
-                <!-- <a href="javascript:history.back()" data-icon="back" data-iconpos="notext"></a> -->
-                <a href="#menuPanel" data-icon="bars" data-iconpos="notext">menu</a>
-                 <h1 class="head">Let's Ride</h1>
-            </div>
-            <div data-role="content">
-                <div id="homeimg">
-                    <div id="">
-                    	Let’s ride는 경제적인 소비습관을 지향합니다.
-                    </div>
-                    
-                </div><br>
-                <div id="all-chat-room">
-                    <div>전체 채팅방</div>
-                    <div id="all-chat-area">
-                    	
-                    </div>
-                    <div id="result-check"></div>
-                    <div id="chat-form">
-	                    <form>
-	                    	<input type="text" placeholder="이곳에 글을 입력하세요.">
-	                    	<input type="button" value="전송">
-	                    </form>
-                    </div>
-                </div>
-                
-                <div class="refresh"></div>
-            </div>
-            <div data-role="footer" data-position="fixed" style="background-color:whitesmoke;">
-                <div data-role="navbar">
-                        <ul>
-                         <li><a href="#room" data-icon="grid" data-transition="slide" data-direction="reverse">방목록</a></li>
-                         <li><a href="#home" data-icon="home">홈</a></li>
-                         <li><a href="#busstop" data-icon="location" data-transition="slide">버스 정보</a></li>
-                        </ul>
-                </div>
-            </div>
-            <div data-role="panel" id="menuPanel" data-position="right" data-display="overlay" >
-                <h3>Menu</h3>
-                <ul data-role="listview">
-                    <li>
-                         <a href="#room">설정 메뉴</a>
-                    </li>
-                    <li data-icon="power">
-                        <a id="kakaoLogout" data-role="button" data-icon="comment" >
-	                  	 로그아웃
-	                	</a>
-                    </li>
-                 </ul>
-            </div>
-        </div>
+	</section>
+	<section data-role="page" id="login">
+		<div data-role="content">
+			<p id="letsride">Let's Ride2</p>
+			<div id="logo">
+				<a id="kakaoLogin" data-role="button" data-icon="comment"
+					data-iconpos="bottom"> 카카오톡 로그인 </a>
+					<input type="text" id="virtual-user">
+			</div>
 
-         <!-------------------------------------------------------------------------?---------------------------------------------------->
-        <div data-role="page" id="secondpage">
-            <div data-role="header">
-                    <a class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-left ui-btn-icon-left ui-icon-carat-l" href="javascript:history.back()" >back</a>
-                    <a href="#menuPanel" data-icon="bullets" data-iconpos="notext">Add</a>
-                     <h1>Let's Ride</h1>
-            </div>
-                <div data-role="content">
-                    <h1>Ride with</h1>
-                </div>
-                <div data-role="panel" id="menuPanel" data-position="right" data-display="overlay" data-theme="a">
-                        <h3>메뉴</h3>
-                        <ul data-role="listview">
-                            <li>
-                                 <a href="#room">설정 메뉴</a>
-                            </li>
-                            <li data-icon="power">
-                                <a href="#room">Logout</a>
-                            </li>
-                         </ul>
-                 </div>
-        </div>
+		</div>
+		<div id="divResult"></div>
+	</section>
+	<!---------------------------홈화면------------------------->
+	<section data-role="page" id="home">
+		<div data-role="header" style="background-color: whitesmoke;">
+			
+		
+			<h1 class="head">Let's Ride</h1>
+			<a href="#menuPanel" data-icon="bars"
+				data-iconpos="notext">Add</a>
+		</div>
+		<div data-role="content">
+			<div id="homeimg">
+				<div id="">Let’s ride는 경제적인 소비습관을 지향합니다.</div>
 
-        <!-------------------------------------------------------------------------방목록---------------------------------------------------->
-        <div data-role="page" id="room">
-            <div data-role="header">
-                <a href="javascript:history.back()" data-icon="back" data-iconpos="notext"></a>
-                <a href="#menuPanel" data-icon="bars" data-iconpos="notext">Add</a>
-                 <h1 class="head">Let's Ride</h1>
-            </div>
-            <div data-role="content">
-                    <h2>명학역 지금 택시타실분 ~</h2><hr>
-                    <p> 명학역 지금 중생관까지 타실분 들어오세요</p><br><br>
-                    <h2> 9:00분 명학역 택시 ㄱㄱ</h2><hr>
-                    <p> 9시에 1호선 내리는사람중 탈사람 이리콤</p>
-                    <div class="refresh"><!-- <img src="re50.png"> --></div>
-            </div>
-            <div data-role="footer" data-position="fixed"">
-                <div data-role="navbar">
-                        <ul>
-                         <li><a href="#room" data-icon="grid">방목록</a></li>
-                         <li><a href="#home" data-icon="home" data-transition="slide">홈</a></li>
-                         <li><a href="#busstop" data-icon="gear" data-transition="slide">버스 정보</a></li>
-                        </ul>
-                </div>
-            </div>
-                <div data-role="panel" id="menuPanel" data-position="right" data-display="overlay" data-theme="a">
-                        <h3>메뉴</h3>
-                        <ul data-role="listview">
-                            <li>
-                                 <a href="#room">설정 메뉴</a>
-                            </li>
-                            <li data-icon="power">
-                                <a href="#room">Logout</a>
-                            </li>
-                         </ul>
-                 </div>
-            </div>
-        <!---------------------------------------------------------------버스정보------------------------------------------------------------------------------------->
-        <div data-role="page" id="busstop">
-                <div data-role="header" style="background-color:  whitesmoke;">
-                        <a href="javascript:history.back()" data-icon="back" data-iconpos="notext"></a>
-                        <a href="#menuPanel" data-icon="bars" data-iconpos="notext">Add</a>
-                         <h1 class="head">Let's Ride</h1>
-                </div>
-            <div data-role="content">
-                <!--<iframe id="busiframe" src="https://m.map.naver.com/bus/station.nhn?stationID=115272" frameborder="0"></iframe>-->
-                <p>이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱
-                이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱
-                이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱
-                이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱
-                욱이성욱
-                이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱</p>
-                <div class="refresh"><!-- <img src="re50.png"> --></div>
-            </div>
-            <div data-role="footer" data-position="fixed" style="background-color:whitesmoke;">
-                <div data-role="navbar">
-                        <ul>
-                         <li><a href="#room" data-icon="grid" data-transition="slide" data-direction="reverse">방목록</a></li>
-                         <li><a href="#home" data-icon="home" data-transition="slide" data-direction="reverse">홈</a></li>
-                         <li><a href="#busstop" data-icon="gear">실시간 버스</a></li>
-                        </ul>
-                </div>
-            </div>
-            
-        </div>
+			</div>
+			<br>
+			<div id="all-chat-room">
+				<div>전체 채팅방</div>
+			
+				<div class="chat-area" id="chat-area-all"></div>
+				<div id="chat-form">
+					<form onsubmit="return false;">
+					<div class="ui-grid-a">
+						<div class="ui-block-a" style="width:80%;">
+							<textarea class="chatInputText" style="resize: none" name="chatInputText"  onkeydown="JavaScript:Enter_Check(this.form);"></textarea>
+						</div>
+						<div class="ui-block-b" style="width:20%">
+							<input type="button" data-mini="true" onclick="chat_send(this.form)" value="전송">
+						</div>
+					</div>
+						<input type="hidden" name="chatRoomScope" value="all">
+					</form>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed"
+			style="background-color: whitesmoke;">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#room" data-icon="grid" data-transition="slide"
+						data-direction="reverse">방목록</a></li>
+					<li><a href="#home" data-icon="home">홈</a></li>
+					<li><a href="#busstop" data-icon="location"
+						data-transition="slide">버스 정보</a></li>
+				</ul>
+			</div>
+		</div>
+		<div data-role="panel" id="menuPanel" data-position="right"
+			data-display="overlay">
+			<h3>Menu</h3>
+			<ul data-role="listview">
+				<li><a href="#room">설정 메뉴</a></li>
+				<li data-icon="power"><a id="kakaoLogout" data-role="button"
+					data-icon="comment"> 로그아웃 </a></li>
+			</ul>
+		</div>
+	</section>
+
+	
+
+	<!----------------------------------방목록--------------------------------->
+	<section data-role="page" id="room">
+		<div data-role="header">
+			<h1 class="head">Let's Ride</h1>
+			<a href="#menuPanel" data-icon="bars"
+				data-iconpos="notext">Add</a>
+		</div>
+		<div data-role="content">
+			<a data-role="button" style="position : fixed; bottom : 70px; right : 20px;">방 만들기</a>
+			<div data-role="listview">
+				<ul>
+					<li></li>
+				</ul>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#room" data-icon="grid">방목록</a></li>
+					<li><a href="#home" data-icon="home" data-transition="slide">홈</a></li>
+					<li><a href="#busstop" data-icon="gear"
+						data-transition="slide">버스 정보</a></li>
+				</ul>
+			</div>
+		</div>
+		<div data-role="panel" id="menuPanel" data-position="right"
+			data-display="overlay">
+			<h3>Menu</h3>
+			<ul data-role="listview">
+				<li><a href="#room">설정 메뉴</a></li>
+				<li data-icon="power"><a id="kakaoLogout" data-role="button"
+					data-icon="comment"> 로그아웃 </a></li>
+			</ul>
+		</div>
+	</section>
+	<!---------------------------------------------------------------버스정보------------------------------------------------------------------------------------->
+	<section data-role="page" id="busstop">
+		<div data-role="header" style="background-color: whitesmoke;">
+			<a href="javascript:history.back()" data-icon="back"
+				data-iconpos="notext"></a> <a href="#menuPanel" data-icon="bars"
+				data-iconpos="notext">Add</a>
+			<h1 class="head">Let's Ride</h1>
+		</div>
+		<div data-role="content">
+			<!--<iframe id="busiframe" src="https://m.map.naver.com/bus/station.nhn?stationID=115272" frameborder="0"></iframe>-->
+			<p>이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱
+				이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱
+				이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱
+				이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱
+				욱이성욱 이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱</p>
+			
+		</div>
+		<div data-role="footer" data-position="fixed"
+			style="background-color: whitesmoke;">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#room" data-icon="grid" data-transition="slide"
+						data-direction="reverse">방목록</a></li>
+					<li><a href="#home" data-icon="home" data-transition="slide"
+						data-direction="reverse">홈</a></li>
+					<li><a href="#busstop" data-icon="gear">실시간 버스</a></li>
+				</ul>
+			</div>
+		</div>
+		
+	</section>
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 <script>
