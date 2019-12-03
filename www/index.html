@@ -2,170 +2,429 @@
 
 <html>
 <head>
-    <meta charset="utf-8"/>
-	 <meta name="viewport" content="width=device-width, target-densitydpi=device-dpi" />
-    <meta name="format-detection" content="telephone=no">
-    <meta name="msapplication-tap-highlight" content="no">
-    <!-- <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover"> -->
-	<link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css">
-    <script src="./js/jquery-1.11.1.min.js"></script>
-    <script src="./jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <title>Let's Ride</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, target-densitydpi=device-dpi, user-scalable=0">
+<!-- <meta name="viewport" content="width=device-width, target-densitydpi=device-dpi" /> -->
+<meta name="format-detection" content="telephone=no">
+<meta name="msapplication-tap-highlight" content="no">
+<!-- <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover"> -->
+<link rel="stylesheet" href="./css/main.css">
+<link rel="stylesheet"
+	href="./jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="./js/jquery-1.11.1.min.js"></script>
+<script src="./jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<!-- <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey="></script> -->
+<title>Let's Ride</title>
 </head>
 <body>
+	<!-- <section data-role="page" id="login">
+          <div   >
+                <p id="letsride">Let's Ride2</p>
+                <div id="logo">
+                <a id="kakaoLogin" data-role="button" data-icon="comment" data-iconpos="bottom">
+                  	 카카오톡 로그인
+                </a>
+                </div>
+
+            </div>
+            <div id="divResult"></div>
+        </section> -->
 	<section data-role="page" id="loding">
-		<div data-role="content">
+		<!-- <div   style="background-image: url(./img/loading1.jpg);height:100%;width:auto;">
 			<div id="letsride">Let's Ride2</div>
-			<div id="logo">
-				로딩중입니다.
-			</div>
-		</div>
+			<div id="logo">로딩중입니다.</div>
+			
+		</div> -->
+		<img class="loadingImg" src="./img/loading1.jpg" >
 	</section>
 	<section data-role="page" id="login">
-		<div data-role="content">
-			<p id="letsride">Let's Ride2</p>
-			<div id="logo">
-				<a id="kakaoLogin" data-role="button" data-icon="comment"
+		
+		<div style="background-image: url(./img/loading2.jpg);height:100%;width:100%;position: absolute;padding:0; top:0; left: 0;">
+			<div id="letsride">Let's Ride</div>
+			<a id="kakaoLogin" data-role="button" data-icon="comment"
 					data-iconpos="bottom"> 카카오톡 로그인 </a>
-					<input type="text" id="virtual-user">
-			</div>
-
 		</div>
-		<div id="divResult"></div>
 	</section>
 	<!---------------------------홈화면------------------------->
 	<section data-role="page" id="home">
-		<div data-role="header" style="background-color: whitesmoke;">
-			
-		
-			<h1 class="head">Let's Ride</h1>
-			<a href="#menuPanel" data-icon="bars"
-				data-iconpos="notext">Add</a>
-		</div>
-		<div data-role="content">
-			<div id="homeimg">
-				<div id="">Let’s ride는 경제적인 소비습관을 지향합니다.</div>
+		<div data-role="header" style="float:" data-tap-toggle="false" data-position="fixed">
 
+			<a href="#" data-icon="home" data-iconpos="notext"></a>
+			<h1 class="head">Let's Ride</h1>
+			<a href="#homeMenuPanel" data-icon="bars" data-iconpos="notext">Add</a>
+		</div>
+		<div  >
+			<div id="homeText">
+				Let’s ride는 경제적인 소비습관을 지향합니다.
+				<!-- <a data-role="button" href="#mappage">지 도</a> -->
 			</div>
-			<br>
 			<div id="all-chat-room">
-				<div>전체 채팅방</div>
-			
+				<div>
+					전체 채팅방 (<span id="chat-area-num-all">0</span>명)
+				</div>
+
 				<div class="chat-area" id="chat-area-all"></div>
-				<div id="chat-form">
+				<div class="chat-form">
 					<form onsubmit="return false;">
-					<div class="ui-grid-a">
-						<div class="ui-block-a" style="width:80%;">
-							<textarea class="chatInputText" style="resize: none" name="chatInputText"  onkeydown="JavaScript:Enter_Check(this.form);"></textarea>
+						<div class="ui-grid-a">
+							<div class="ui-block-a" style="width: 80%;">
+								<textarea class="chatInputText" style="resize: none"
+									name="chatInputText"
+									onkeydown="JavaScript:Enter_Check(this.form);"></textarea>
+							</div>
+							<div class="ui-block-b" style="width: 20%">
+								<input type="button" data-mini="true"
+									onclick="chat_send(this.form)" value="전송">
+							</div>
 						</div>
-						<div class="ui-block-b" style="width:20%">
-							<input type="button" data-mini="true" onclick="chat_send(this.form)" value="전송">
-						</div>
-					</div>
-						<input type="hidden" name="chatRoomScope" value="all">
+						<input type="hidden" name="chatRoomScope" class="chatRoomScope" value="all">
 					</form>
 				</div>
 			</div>
 		</div>
-		<div data-role="footer" data-position="fixed"
-			style="background-color: whitesmoke;">
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#room" data-icon="grid" data-transition="slide"
-						data-direction="reverse">방목록</a></li>
-					<li><a href="#home" data-icon="home">홈</a></li>
-					<li><a href="#busstop" data-icon="location"
-						data-transition="slide">버스 정보</a></li>
-				</ul>
-			</div>
-		</div>
-		<div data-role="panel" id="menuPanel" data-position="right"
-			data-display="overlay">
-			<h3>Menu</h3>
-			<ul data-role="listview">
-				<li><a href="#room">설정 메뉴</a></li>
-				<li data-icon="power"><a id="kakaoLogout" data-role="button"
-					data-icon="comment"> 로그아웃 </a></li>
-			</ul>
-		</div>
-	</section>
-
-	
-
-	<!----------------------------------방목록--------------------------------->
-	<section data-role="page" id="room">
-		<div data-role="header">
-			<h1 class="head">Let's Ride</h1>
-			<a href="#menuPanel" data-icon="bars"
-				data-iconpos="notext">Add</a>
-		</div>
-		<div data-role="content">
-			<a data-role="button" style="position : fixed; bottom : 70px; right : 20px;">방 만들기</a>
-			<div data-role="listview">
-				<ul>
-					<li></li>
-				</ul>
-			</div>
-		</div>
-		<div data-role="footer" data-position="fixed">
+		<div data-role="footer" data-tap-toggle="false" data-position="fixed" >
 			<div data-role="navbar">
 				<ul>
 					<li><a href="#room" data-icon="grid">방목록</a></li>
-					<li><a href="#home" data-icon="home" data-transition="slide">홈</a></li>
-					<li><a href="#busstop" data-icon="gear"
-						data-transition="slide">버스 정보</a></li>
+					<li><a href="#home" data-icon="home">홈</a></li>
+					<li><a href="#busstop" data-icon="gear">버스 정보</a></li>
 				</ul>
-			</div> 
+			</div>
 		</div>
-		<div data-role="panel" id="menuPanel" data-position="right"
+		<div data-role="panel" id="homeMenuPanel" data-position="right"
 			data-display="overlay">
 			<h3>Menu</h3>
 			<ul data-role="listview">
 				<li><a href="#room">설정 메뉴</a></li>
-				<li data-icon="power"><a id="kakaoLogout" data-role="button"
+				<li data-icon="power"><a class="kakaoLogout" data-role="button"
 					data-icon="comment"> 로그아웃 </a></li>
+				<li data-icon="power"><a class="byForever" data-role="button"
+				data-icon="comment"> 회원탈퇴 </a></li>
 			</ul>
 		</div>
-	</section>
-	<!---------------------------------------------------------------버스정보------------------------------------------------------------------------------------->
-	<section data-role="page" id="busstop">
-		<div data-role="header" style="background-color: whitesmoke;">
-			<a href="javascript:history.back()" data-icon="back"
-				data-iconpos="notext"></a> <a href="#menuPanel" data-icon="bars"
-				data-iconpos="notext">Add</a>
-			<h1 class="head">Let's Ride</h1>
+		<div data-role="popup" id="today-form" style="padding: 30px;"
+			data-overlay-theme="b" class="ui-corner-all">
+			<div>오늘의 의상을 한줄로 표현해주세요!</div>
+			<textarea rows="" cols="" id="today-text"></textarea>
+			<div class="ui-grid-a" data-mini="true">
+				<div class="ui-block-a">
+					<a data-role="button" data-rel="back" >귀찮아요</a>
+				</div>
+				<div class="ui-block-b">
+					<a data-role="button" data-rel="back" >확인</a>
+				</div>
+			</div>
 		</div>
-		<div data-role="content">
-			<!--<iframe id="busiframe" src="https://m.map.naver.com/bus/station.nhn?stationID=115272" frameborder="0"></iframe>-->
-			<p>이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱
-				이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱
-				이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱
-				이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱
-				욱이성욱 이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱이성욱</p>
+	</section>
+	<!----------------------------------방목록--------------------------------->
+	<section data-role="page" id="room">
+		<div data-role="header" data-tap-toggle="false" data-position="fixed">
+			<a href="javascript:history.back()" data-icon="back"
+				data-iconpos="notext"></a>
+			<h1 class="head">Let's Ride</h1>
+			<a onClick="drowRoom()" data-role="button"
+					data-icon="refresh" data-iconpos="notext"></a>
+		</div>
+		<div  >
+			<div class="ui-bar ui-bar-a my">내가 만든 방</div>
+			<div class="my-room-area"></div>
+
+			<div class="ui-bar ui-bar-a attended">내가 포함된 방</div>
+			<div class="attended-room-area"></div>
+
+			<div class="ui-bar ui-bar-a all">모든 방</div>
+			<div class="all-room-area"></div>
+
+			<a data-role="button" onClick="rommmakeClick()"
+				style="position: fixed; bottom: 10%; right: 5%; border-radius: 10%;"
+				id="make_room_button" data-position-to="window">
+				방 만들기</a>
+			
+			<div data-role="footer" data-tap-toggle="false" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#room" data-icon="grid">방목록</a></li>
+						<li><a href="#home" data-icon="home">홈</a></li>
+						<li><a href="#busstop" data-icon="gear">버스 정보</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div data-role="panel" id="roomMenuPanel" data-position="right"
+			data-display="overlay">
+			<h3>Menu</h3>
+			<ul data-role="listview">
+				<li><a href="#room">설정 메뉴</a></li>
+				<li data-icon="power"><a class="kakaoLogout" data-role="button"
+					data-icon="comment"> 로그아웃 </a></li>
+				<li data-icon="power"><a class="byForever" data-role="button"
+				data-icon="comment"> 회원탈퇴 </a></li>
+			</ul>
+		</div>
+		<div data-role="popup" id="room_delete_check" style="padding: 30px;"
+			data-overlay-theme="b" class="ui-corner-all">
+			<div>이미 만든 방이 있습니다. 기존 방을 삭제해주세요.</div>
+			<div class="ui-grid-a" data-mini="true">
+				<div class="ui-block-a"></div>
+				<div class="ui-block-b">
+					<a data-role="button" data-rel="back" >확인</a>
+				</div>
+			</div>
+		</div>
+		<div data-role="popup" id="roommake" style="padding: 30px; width:250px;"
+			data-overlay-theme="b"  data-position-to="window" class="ui-corner-all">
+			<form id="roommake-form">
+				<label for="rn">방제목</label> 
+				<input type="text" name="rn" id="rn">
+				<fieldset data-role="controlgroup" data-type="horizontal">
+					<legend class="ft">성별</legend>
+					<input type="radio" data-mini="true" name="gender" value="m" id="gender1">
+					<label for="gender1">남자만</label>
+					<input type="radio" data-mini="true" name="gender" value="f" id="gender2"> 
+					<label for="gender2">여자만</label>
+					<input type="radio" data-mini="true" checked="checked" value="a" name="gender" id="gender3"> 
+					<label for="gender3">성별무관</label>
+				</fieldset>
+				<fieldset data-role="controlgroup" data-type="horizontal">
+					<legend class="ft">도착지</legend>
+					<input type="radio" data-mini="true" name="destination" value="정문" id="destination1">
+					<label for="destination1">정문</label> 
+					<input type="radio" data-mini="true" name="destination" value="중생관" id="destination2"> 
+					<label for="destination2">중생관</label> 
+					<input type="radio" data-mini="true" checked="checked" name="destination" value="성결관" id="destination3"> 
+					<label for="destination3">성결관</label>
+				</fieldset>
+				<div class="ui-grid-a" data-mini="true">
+					<div class="ui-block-a">
+						<input type="range" class="leave-schedule"
+							id="leave-schedule-hour" data-highlight="true" value="9" min="0"
+							max="23">
+					</div>
+					<div class="ui-block-b">
+						<input type="range" class="leave-schedule"
+							id="leave-schedule-minute" data-highlight="true" value="0"
+							min="0" max="59">
+					</div>
+				</div>
+				<!-- <div>약 <span id="leave-schedule-hour">9</span>시 <span id="leave-schedule-minute">0</span>분 출발예정</div> -->
+				<div id="leave-schedule-text">약 9시 0분 출발예정</div>
+				<div class="ui-grid-a" data-mini="true">
+					<div class="ui-block-a">
+						<a data-mini="true" data-role="button"  data-rel="back">취소</a>
+					</div>
+					<div class="ui-block-b">
+						<a data-mini="true" data-role="button" onclick="makeRoom(this.form)" data-rel="back">확인</a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+	<!-- ---------------------------------내가 만든 채팅방------------------------------- -->
+	<section data-role="page" id="my-chat-room" style="background: #b2c7d9;">
+		<div data-role="header" data-tap-toggle="false" data-position="fixed">
+			<a href="javascript:history.back()" data-icon="back"
+				data-iconpos="notext"></a>
+			<h1 class="head" id="my-chat-room-header"></h1>
+			<a href="#myRoomMenuPanel" data-icon="bars" data-iconpos="notext">Add</a>
+		</div>
+		<div  data-role="content" style="padding:0">
+			<!-- <div style="position: fixed; top: 10%; right: 5%; border-radius: 10%;">
+				<span class="chat-room-num">0</span>명 접속중
+			</div> -->
+			<div class="my-chat-area room-chat-area"></div>
+			
 			
 		</div>
-		<div data-role="footer" data-position="fixed"
-			style="background-color: whitesmoke;">
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#room" data-icon="grid" data-transition="slide"
-						data-direction="reverse">방목록</a></li>
-					<li><a href="#home" data-icon="home" data-transition="slide"
-						data-direction="reverse">홈</a></li>
-					<li><a href="#busstop" data-icon="gear">실시간 버스</a></li>
-				</ul>
+		<div data-role="footer" data-tap-toggle="false" data-position="fixed">
+			<div class="chat-form">
+				<form onsubmit="return false;">
+					<div class="ui-grid-a">
+						<div class="ui-block-a" style="width: 80%;">
+							<textarea class="chatInputText" style="resize: none"
+								name="chatInputText"
+								onkeydown="JavaScript:Enter_Check(this.form);"></textarea>
+						</div>
+						<div class="ui-block-b" style="width: 20%">
+							<input type="button" data-mini="true"
+								onclick="chat_send(this.form)" value="전송">
+						</div>
+					</div>
+					<input type="hidden" name="chatRoomScope" class="myChatRoomScope" value="">
+				</form>
 			</div>
 		</div>
 		
+		<div data-role="panel" class="chat-info-panel" id="myRoomMenuPanel" data-position="right"
+			data-display="overlay">
+			
+		</div>
+		<div data-role="popup" id="room_delete_check" style="padding: 30px;"
+			data-overlay-theme="b" class="ui-corner-all">
+			
+		</div>
+		
 	</section>
-<script type="text/javascript" src="cordova.js"></script>
-<script type="text/javascript" src="js/index.js"></script>
-<script>
+	<!-- ---------------------------------내가 참여한 채팅방------------------------------- -->
+	<section data-role="page" id="attended-chat-room" style="background: #b2c7d9;">
+		<div data-role="header" data-tap-toggle="false" data-position="fixed">
+			<a href="javascript:history.back()" data-icon="back"
+				data-iconpos="notext"></a>
+			<h1 class="head" id="attended-chat-room-header"></h1>
+			<a href="#attendedRoomMenuPanel" data-icon="bars" data-iconpos="notext">Add</a>
+		</div>
+		<div data-role="content"  style="padding:0">
+			<!-- <div style="position: fixed; top: 10%; right: 5%; border-radius: 10%;">
+				<span class="chat-room-num">0</span>명 접속중
+			</div> -->
+			<div class="attended-chat-area room-chat-area"></div>
+		</div>
+		<div data-role="footer" data-tap-toggle="false" data-position="fixed">
+			<div class="chat-form">
+				<form onsubmit="return false;">
+					<div class="ui-grid-a">
+						<div class="ui-block-a" style="width: 80%;">
+							<textarea class="chatInputText" style="resize: none"
+								name="chatInputText"
+								onkeydown="JavaScript:Enter_Check(this.form);"></textarea>
+						</div>
+						<div class="ui-block-b" style="width: 20%">
+							<input type="button" data-mini="true"
+								onclick="chat_send(this.form)" value="전송">
+						</div>
+					</div>
+					<input type="hidden" name="chatRoomScope" class="attendedChatRoomScope" value="">
+				</form>
+			</div>
+		</div>
+		<div data-role="panel" class="chat-info-panel" id="attendedRoomMenuPanel" data-position="right"
+			data-display="overlay">
+			
+		</div>
+		
+		<div data-role="popup" id="room_delete_check" style="padding: 30px;"
+			data-overlay-theme="b" class="ui-corner-all">
+			
+		</div>
+		
+	</section>
+	<!---------------------------------------------------------------버스정보------------------------------------------------------------------------------------->
+	<section data-role="page" id="busstop">
+		<div data-role="header" data-tap-toggle="false"  
+			data-position="fixed">
+			<a href="javascript:history.back()" data-icon="back"
+				data-iconpos="notext"></a> <a href="#busMenuPanel" data-icon="bars"
+				data-iconpos="notext">Add</a>
+			<h1 class="head">Let's Ride</h1>
+		</div>
+		<div data-role="content" >
+
+			<div data-role="collapsible" data-collapsed="false"
+				data-inset="false">
+				<h3>명학역 마을버스</h3>
+				<a onClick="drowBus()" style="float: right" data-role="button"
+					data-icon="refresh" data-iconpos="notext"></a>
+				<div>
+					<p>10-1</p>
+					<div>
+						<p>
+							1번째 : <span id="bus10_1-first"> <span
+								id="bus10_1-first-time"></span>분 후 (<span id="bus10_1-first-loc"></span>번째
+								전)
+							</span>
+						</p>
+						<p>
+							2번째 : <span id="bus10_1-second"> <span
+								id="bus10_1-second-time"></span>분 후 (<span
+								id="bus10_1-second-loc"></span>번째 전)
+							</span>
+						</p>
+					</div>
+					<p>10-2</p>
+					<div>
+						<p>
+							1번째 : <span id="bus10_2-first"> <span
+								id="bus10_2-first-time"></span>분 후 (<span id="bus10_2-first-loc"></span>번째
+								전)
+							</span>
+						</p>
+						<p>
+							2번째 : <span id="bus10_2-second"> <span
+								id="bus10_2-second-time"></span>분 후 (<span
+								id="bus10_2-second-loc"></span>번째 전)
+							</span>
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div data-role="collapsible" data-collapsed="false"
+				data-inset="false">
+				<h3>통학버스 운행시간표</h3>
+				<p>명학역 => 성결대학교</p>
+				<div>
+					<p>
+						<span class="red">08:00 ~ 10:50</span> 매시 10분 간격 운행
+					</p>
+					<p>
+						<span class="red">12:30 ~ 13:30</span> 매시 10분 간격 운행
+					</p>
+					<p>
+						<span class="red">16:10 ~ 18:00</span> 매시 10분 간격 운행
+					</p>
+				</div>
+				<p>성결대학교 => 명학역</p> 
+				<div>
+					<p>
+						<span class="red">12:20 ~ 13:20</span> 매시 10분 간격 운행
+					</p>
+					<p>
+						<span class="red">16:00 ~ 17:50</span> 매시 10분 간격 운행
+					</p>
+					<p>
+						<span class="red">21:20, 21:40 (2회)</span> 성결관 앞
+					</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-tap-toggle="false" data-position="fixed"
+			 >
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#room" data-icon="grid">방목록</a></li>
+					<li><a href="#home" data-icon="home">홈</a></li>
+					<li><a href="#busstop" data-icon="gear">버스정보</a></li>
+				</ul>
+			</div>
+		</div>
+		<div data-role="panel" id="busMenuPanel" data-position="right"
+			data-display="overlay">
+			<h3>Menu</h3>
+			<ul data-role="listview">
+				<li><a href="#room">설정 메뉴</a></li>
+				<li data-icon="power"><a class="kakaoLogout" data-role="button"
+					data-icon="comment"> 로그아웃 </a></li>
+				<li data-icon="power"><a class="byForever" data-role="button"
+				data-icon="comment"> 회원탈퇴 </a></li>
+			</ul>
+		</div>
+	</section>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ad4e3b960536dab102751f783b0d0ceb"></script>
+	<section data-role="page" id="mappage">
+		<div id="map" style="width:400px;height:500px;"></div>
+	
+	</section>
+	<!-- <section data-role="page" id="mappage">
+		<div id="map" style="width:400px;height:600px;"></div>
+	</section> -->
+	
+	<script type="text/javascript" src="cordova.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+	<script>
 
 $(document).ready(function(){
 	document.addEventListener('deviceready', function(e) {
-		$('#divResult').html('디바이스 준비 완료');
+		console.log('디바이스 준비 완료');
 		
 	}, false);
 	
